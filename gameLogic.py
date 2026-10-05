@@ -39,3 +39,32 @@ def normalise(text: str) -> str:
 
 def full_phrasal_verb(verb: PhrasalVerb) -> str:
     return f"{verb.base_verb} {verb.particle}"
+
+import random
+
+def generate_meaning_question(verbs):
+    """
+    Returns:
+        current_verb
+        choices (list of 4 Spanish meanings)
+    """
+
+    current = pick_random_phrasal_verb(verbs)
+
+    # Get all possible meanings except the correct one
+    wrong_answers = [
+        verb.spanish
+        for verb in verbs
+        if verb.spanish != current.spanish
+    ]
+
+    # Pick three random incorrect answers
+    choices = random.sample(wrong_answers, 3)
+
+    # Add the correct answer
+    choices.append(current.spanish)
+
+    # Shuffle everything
+    random.shuffle(choices)
+
+    return current, choices

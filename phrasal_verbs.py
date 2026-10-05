@@ -8,9 +8,8 @@ from gameLogic import (
 
 
 def register_routes(app, verbs):
-
-    @app.route("/play", methods=["GET", "POST"])
-    def play():
+    @app.route("/play_phrasal_verbs", methods=["GET", "POST"])
+    def play_phrasal_verbs():
 
         if "player_name" not in session:
             return redirect(url_for("set_name"))
@@ -24,6 +23,8 @@ def register_routes(app, verbs):
         feedback = ""
         feedback_class = ""
         show_next = False
+        if "answered" not in session:
+            session["answered"] = False
 
         # ---------- Handle buttons ----------
         if request.method == "POST":
@@ -44,7 +45,7 @@ def register_routes(app, verbs):
 
                     feedback = (
                         f"✅ Correct!<br><br>"
-                        f"<strong>{current.english}</strong>"
+                        f"<strong>{current.phrasal_verb}</strong>"
                     )
 
                     feedback_class = "correct"
@@ -54,11 +55,12 @@ def register_routes(app, verbs):
                     feedback = (
                         f"❌ Incorrect.<br><br>"
                         f"The correct answer is:<br>"
-                        f"<strong>{current.english}</strong>"
+                        f"<strong>{current.phrasal_verb}</strong>"
                     )
 
                     feedback_class = "incorrect"
 
+                session["answered"] = True
                 show_next = True
 
             # ---------------- Next question ----------------
@@ -68,11 +70,14 @@ def register_routes(app, verbs):
                 session["current"] = pick_random_phrasal_verb(verbs).__dict__
 
                 current = PhrasalVerb(**session["current"])
+                session["answered"] = False
+                feedback = ""
+                feedback_class = ""
 
-        accuracy = 0
+        session["accuracy"] = 0
 
         if session["guesses"] > 0:
-            accuracy = round(
+            session["accuracy"] = round(
                 session["points"] / session["guesses"] * 100,
                 1
             )
@@ -86,5 +91,6 @@ def register_routes(app, verbs):
             show_next=show_next,
             points=session["points"],
             guesses=session["guesses"],
-            accuracy=accuracy
+            accuracy=session["accuracy"],
+            answered=session["answered"],
         )
