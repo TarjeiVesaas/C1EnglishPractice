@@ -16,6 +16,10 @@ verbs = load_verbs("Phrasal Verbs")
 
 current = pick_random_phrasal_verb(verbs)
 
+@app.route("/")
+def index():
+    return redirect(url_for("set_name"))
+
 @app.route("/set_name", methods=["GET", "POST"])
 def set_name():
 
