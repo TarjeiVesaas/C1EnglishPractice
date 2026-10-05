@@ -1,0 +1,74 @@
+{% extends "base.html" %}
+
+{% block title %}
+Phrasal Verb Meanings
+{% endblock %}
+
+{% block content %}
+
+<div class="score">
+    ⭐ {{ points }} / {{ guesses }}
+    ({{ accuracy }}%)
+</div>
+
+<h1>What does this phrasal verb mean?</h1>
+
+<p class="player">
+    Welcome, <strong>{{ player_name }}</strong>!
+</p>
+
+<h1>What does this phrasal verb mean?</h1>
+
+<div class="big-word">
+
+    {{ verb.phrasal_verb }}
+
+</div>
+
+<form method="post">
+
+{% if not answered %}
+
+    {% for choice in choices %}
+
+        <button
+            class="choice"
+            type="submit"
+            name="choice"
+            value="{{ choice }}">
+
+            {{ choice }}
+
+        </button>
+
+        <br>
+
+    {% endfor %}
+
+    <input
+        type="hidden"
+        name="action"
+        value="answer">
+
+{% else %}
+
+    <div class="feedback {{ feedback_class }}">
+
+        {{ feedback|safe }}
+
+    </div>
+
+    <button
+        type="submit"
+        name="action"
+        value="next">
+
+        Next Question →
+
+    </button>
+
+{% endif %}
+
+</form>
+
+{% endblock %}

@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+
+    <title>{% block title %}C1 English Practice{% endblock %}</title>
+
+    <style>
+
+        body{
+            background:#121212;
+            color:white;
+            font-family:'Segoe UI',sans-serif;
+            text-align:center;
+            padding:50px;
+        }
+
+        h1{
+            font-size:3em;
+            margin-bottom:10px;
+        }
+
+        h2{
+            font-weight:normal;
+            color:#cccccc;
+            margin-bottom:40px;
+        }
+
+        button{
+
+            font-size:1.5em;
+            padding:15px 35px;
+
+            border:none;
+            border-radius:10px;
+
+            cursor:pointer;
+
+            background:linear-gradient(135deg,#3498db,#2980b9);
+
+            color:white;
+
+            transition:0.15s;
+
+        }
+
+        button:hover{
+
+            transform:scale(1.05);
+
+        }
+
+        input{
+
+            font-size:2em;
+            padding:10px;
+
+            width:220px;
+
+            border:none;
+            border-radius:10px;
+
+            text-align:center;
+
+        }
+
+        .feedback{
+
+            margin-top:30px;
+            font-size:1.4em;
+
+        }
+
+        .correct{
+
+            color:#2ecc71;
+
+        }
+
+        .incorrect{
+
+            color:#e74c3c;
+
+        }
+
+        .big-word{
+
+            font-size:3.5em;
+            font-weight:bold;
+
+            color:#f1c40f;
+
+            margin:30px;
+
+            text-shadow:
+                    0 0 10px rgba(241,196,15,0.5),
+                    0 0 25px rgba(241,196,15,0.3);
+
+        }
+
+        .score{
+
+            margin-top:50px;
+            font-size:1.2em;
+
+        }
+
+        .restart{
+
+            position:fixed;
+            top:20px;
+            right:20px;
+
+            font-size:2em;
+
+            color:white;
+
+            text-decoration:none;
+
+        }
+
+        .restart:hover{
+
+            color:#e74c3c;
+
+        }
+
+        .player{
+    color:#bbbbbb;
+    font-size:1.2em;
+    margin-bottom:25px;
+}
+
+.translation-box{
+    display:inline-block;
+    background:#1f2937;
+    color:white;
+    padding:12px 28px;
+    border-radius:12px;
+    font-size:1.4em;
+    margin-bottom:30px;
+    border:2px solid #3498db;
+}
+
+.instruction{
+    font-size:1.2em;
+    color:#dddddd;
+    margin-bottom:10px;
+}
+
+.big-word{
+    font-size:4em;
+    font-weight:bold;
+    color:#f1c40f;
+    margin:25px 0;
+}
+
+input{
+    font-size:2em;
+    width:220px;
+    text-align:center;
+    padding:12px;
+    border-radius:12px;
+    border:none;
+}
+
+button{
+    font-size:1.4em;
+    padding:15px 35px;
+    border:none;
+    border-radius:12px;
+    background:#3498db;
+    color:white;
+    cursor:pointer;
+    transition:.15s;
+}
+
+button:hover{
+    transform:scale(1.05);
+}
+
+.feedback{
+    margin-top:30px;
+    font-size:1.6em;
+    line-height:1.6;
+}
+
+.background{
+    position:fixed;
+    inset:0;
+    overflow:hidden;
+    pointer-events:none;
+    z-index:-1;
+}
+
+.background span{
+    position:absolute;
+    font-size:70px;
+    opacity:.05;
+    filter:blur(1px);
+    animation:float 30s linear infinite;
+}
+
+.background span:nth-child(1){left:5%;animation-duration:32s;}
+.background span:nth-child(2){left:15%;animation-duration:26s;animation-delay:-8s;}
+.background span:nth-child(3){left:25%;animation-duration:28s;}
+.background span:nth-child(4){left:38%;animation-duration:35s;}
+.background span:nth-child(5){left:50%;animation-duration:24s;}
+.background span:nth-child(6){left:62%;animation-duration:31s;}
+.background span:nth-child(7){left:74%;animation-duration:27s;}
+.background span:nth-child(8){left:84%;animation-duration:33s;}
+.background span:nth-child(9){left:92%;animation-duration:29s;}
+.background span:nth-child(10){left:55%;animation-duration:37s;}
+
+@keyframes float{
+    from{
+        transform:translateY(110vh) rotate(0deg);
+    }
+
+    to{
+        transform:translateY(-20vh) rotate(360deg);
+    }
+}
+
+.correct{
+    color:#2ecc71;
+}
+
+.incorrect{
+    color:#e74c3c;
+}
+
+.blank{
+    color:#777;
+    letter-spacing:6px;
+    margin-left:15px;
+    font-weight:normal;
+}
+
+.choice{
+
+    width:450px;
+
+    margin:12px;
+
+    padding:18px;
+
+    font-size:1.4em;
+
+    border-radius:12px;
+
+    border:none;
+
+    cursor:pointer;
+
+    background:#2d3436;
+
+    color:white;
+
+    transition:.15s;
+
+}
+
+.choice:hover{
+
+    transform:scale(1.03);
+
+    background:#3498db;
+
+}
+
+.score{
+    position:fixed;
+    top:20px;
+    right:25px;
+    font-size:1.2em;
+    color:#cccccc;
+}
+
+    </style>
+
+</head>
+
+<body>
+
+<div class="background">
+    <span>☕</span>
+    <span>📚</span>
+    <span>🎓</span>
+    <span>🏰</span>
+    <span>🚌</span>
+    <span>🎩</span>
+    <span>🫖</span>
+    <span>📖</span>
+</div>
+
+{% block content %}
+{% endblock %}
+
+<a href="/reset" class="restart">✖</a>
+
+</body>
+
+</html>

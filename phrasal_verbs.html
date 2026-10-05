@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block title %}
+Phrasal Verbs
+{% endblock %}
+
+{% block content %}
+
+<div class="score">
+    ⭐ {{ points }} / {{ guesses }}
+    ({{ accuracy }}%)
+</div>
+
+<h1>Write the preposition!</h1>
+
+<p class="player">
+    Welcome, <strong>{{ player_name }}</strong>!
+</p>
+
+<div class="translation-box">
+    🇪🇸 {{ verb.spanish }}
+</div>
+
+<p class="instruction">
+    Complete the phrasal verb:
+</p>
+
+<div class="big-word">
+
+    {{ verb.base_verb }}
+    <span class="blank">_____</span>
+
+</div>
+
+<form method="post">
+
+{% if not answered %}
+
+    <input
+        type="text"
+        name="particle"
+        placeholder="Preposition..."
+        autofocus
+        autocomplete="off">
+
+    <br><br>
+
+    <button
+        type="submit"
+        name="action"
+        value="submit">
+
+        ✓ Check Answer
+
+    </button>
+
+{% else %}
+
+    {% if feedback %}
+
+        <div class="feedback {{ feedback_class }}">
+            {{ feedback|safe }}
+        </div>
+
+    {% endif %}
+
+    <br>
+
+    <button
+        type="submit"
+        name="action"
+        value="next">
+
+        Next Question →
+
+    </button>
+
+{% endif %}
+
+</form>
+
+{% endblock %}
